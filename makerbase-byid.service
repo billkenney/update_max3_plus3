@@ -1,0 +1,11 @@
+[Unit]
+Description=MKS-byid
+After=network.target
+Wants=udev.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=bash /root/xindi/mks-id.sh
