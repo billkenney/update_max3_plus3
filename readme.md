@@ -2,6 +2,7 @@ Update qidi max3 or plus3 to debian bookworm with the edge kernel, and the lates
 
 1. write this image to your emmc: https://github.com/redrathnure/armbian-mkspi/releases/download/mkspi%2F0.3.4-24.2.0-trunk/Armbian-unofficial_24.2.0-trunk_Mkspi_bookworm_edge_6.7.5.img.xz
 2. follow the instructions here: https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891 (and git pull doesn't work if you cloned the qidi repository, you need to clone the actual klipper repo... also don't overwrite the klipper files yet)
+
 2a. when it comes time to flash the extruder, it's not going to appear in the gcode folder. you need to sudo mount /dev/sda1 /mnt, then copy the klipper.uf2 file to /mnt, then restart
 3. follow the instructions here: https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638 (again, git pull doesn't work if you cloned the qidi repository... also don't overwrite the moonraker files yet)
 4. download all of the service files from this repo, and run systemctl enable systemctl enable makerbase-byid.service ; sudo systemctl enable makerbase-client.service ; sudo systemctl enable makerbase-net-mods.service
