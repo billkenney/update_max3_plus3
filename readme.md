@@ -1,4 +1,4 @@
-Update qidi max3 or plus3 to debian bookworm with the edge kernel, and the latest klipper and moonraker, without losing functionality of the screen. 
+Update qidi max3 or plus3 to debian bookworm with the edge kernel, and the latest fluidd (or mainsail), klipper, and moonraker, without losing functionality of the screen. 
 
 1. write this image to your emmc: https://github.com/redrathnure/armbian-mkspi/releases/download/mkspi%2F0.3.4-24.2.0-trunk/Armbian-unofficial_24.2.0-trunk_Mkspi_bookworm_edge_6.7.5.img.xz
 2. follow the instructions here: https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891 (and git pull doesn't work if you cloned the qidi repository, you need to clone the actual klipper repo... also don't overwrite the klipper files yet)
