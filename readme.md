@@ -1,6 +1,6 @@
 this guide will allow you to update qidi max3 or plus3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen
 
-note that it is not necessary to use the patch files provided by qidi (steps 3 and 5), but installing the firmware updates (which is necessary to get the screen to work) overrites some files in klipper/moonraker. so if you want to run the mainline software, you need to reinstall klipper/moonraker with kiauh after step 12
+note that it is not necessary to use the patch files provided by qidi (steps 3 and 5), but installing the firmware updates (which is necessary to get the screen to work) overwites some files in klipper/moonraker. so if you want to run the mainline software, you need to reinstall klipper/moonraker with kiauh after step 12
 
 1. write this image to your emmc: https://github.com/redrathnure/armbian-mkspi/releases/download/mkspi%2F0.3.4-24.2.0-trunk/Armbian-unofficial_24.2.0-trunk_Mkspi_bookworm_edge_6.7.5.img.xz
 2. after booting up the printer, login and run: sudo apt update ; sudo apt upgrade -y ; sudo apt install make gcc build-essential git -y ; cd /home/mks ; git clone https://github.com/dw-0/kiauh.git ; /home/mks/kiauh/kiauh.sh. Once kiauh is installed, use it to install klipper, moonraker, and fluidd (or mainsail), in that order (run /home/mks/kiauh/kiauh.sh again to start the script). when prompted make sure to select the option to install with python3, not python2
