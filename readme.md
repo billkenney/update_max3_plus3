@@ -2,6 +2,8 @@ this guide will allow you to update qidi max3 or plus3 to debian bookworm with t
 
 note that it is not necessary to use the patch files provided by qidi (steps 3 & 6), but installing the firmware updates (which is necessary to get the screen to work) overwites some files in klipper/moonraker. so if you want to run the mainline software, you need to reinstall klipper/moonraker with kiauh after step 11. you need to use kiauh because it gives you the option to install with python3
 
+the password for ssh and sudo is `makerbase`. anytime you're prompted for a password it's probably `makerbase`
+
 1. write this image to your emmc: https://github.com/redrathnure/armbian-mkspi/releases/download/mkspi%2F0.3.4-24.2.0-trunk/Armbian-unofficial_24.2.0-trunk_Mkspi_bookworm_edge_6.7.5.img.xz
 2. after booting up the printer, login and run: `sudo apt update ; sudo apt upgrade -y ; sudo apt install make gcc build-essential git -y ; cd /home/mks ; git clone https://github.com/dw-0/kiauh.git ; /home/mks/kiauh/kiauh.sh`. Once kiauh is installed, use it to install klipper, moonraker, and fluidd (or mainsail), in that order (run `/home/mks/kiauh/kiauh.sh` again to start the script). when prompted make sure to select the option to install with python3, not python2
 3. to flash the mcu firmware, download this file, copy it to a micro sd card, plug it into the printer, and restart your printer: https://github.com/billkenney/update_max3_plus3/raw/main/X_4.bin
