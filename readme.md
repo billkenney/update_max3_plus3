@@ -1,6 +1,6 @@
 this guide will allow you to update qidi max3 or plus3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen
 
-note that it is not necessary to use the patch files provided by qidi (step 7), but installing the firmware updates (which is necessary to get the screen to work) overwites some files in klipper/moonraker. so if you want to run the mainline software, you need to reinstall klipper/moonraker with kiauh after step 11. you need to use kiauh because it gives you the option to install with python3
+note that it is not necessary to use the patch files provided by qidi (step 7), but installing the firmware updates (which is necessary to get the screen to work) overwites some files in klipper/moonraker. so if you want to run the mainline software, you need to reinstall klipper/moonraker with kiauh after step 12. you need to use kiauh because it gives you the option to install with python3
 
 the password for ssh and sudo is `makerbase`. anytime you're prompted for a password it's probably `makerbase`
 
