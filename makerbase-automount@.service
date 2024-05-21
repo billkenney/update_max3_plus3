@@ -1,0 +1,8 @@
+[Unit]
+Description=Makerbase automount service
+After=moonraker.service
+
+[Service]
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/makerbase-automount %I
