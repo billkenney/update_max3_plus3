@@ -1,5 +1,7 @@
 this guide will allow you to update qidi max3 or plus3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. the easiest way is to write the qidi_update.img file to your emmc, flash the mcus, then replace the printer.cfg (if you have the max3 with the probe or the plus3). if you have the max3 with the bltouch, you don't have to do much other than flashing the mcus unless you want to install qidi's patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). default user is 'mks' and password (for ssh and root) is 'makerbase'
 
+if you want to try the much more complicated manual install method, you can follow the steps outlined here: https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
+
 1. write this image to your emmc: https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update/qidi_update.img.xz
 2. the language is set to English and the timezone is set to America/Chicago. to chsnge this, run `sudo dpkg-reconfigure locales`. if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`
 3. to flash the mcu firmware, download this file, copy it to a micro sd card, plug it into the printer, and restart your printer: https://github.com/billkenney/update_max3_plus3/raw/main/X_4.bin
