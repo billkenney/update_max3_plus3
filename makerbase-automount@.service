@@ -6,3 +6,6 @@ After=moonraker.service
 Type=forking
 GuessMainPID=no
 ExecStart=/usr/bin/makerbase-automount %I
+
+[Install]
+WantedBy=multi-user.target
