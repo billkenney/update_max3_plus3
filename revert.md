@@ -2,11 +2,17 @@
 2. to flash your motherboard mcu: `make clean ; make menuconfig`. configure with the below options, then press 'q' and select the option to save. then run `make`. download ~/klipper/out/klipper.bin to uour computer, rename it X_4.bin, put it on a micro sd card, plug it into the printer, and restart the printer. 
 
 [*] Enable extra low-level configuration options
+
 Micro-controller Architecture (STMicroelectronics STM32)
+
 Processor model (STM32F401)
+
 Bootloader offset (32KiB bootloader)
+
 Clock Reference (8 MHz crystal)
+
 Communication interface (Serial (on USART1 PA10/PA9))
+
 (250000) Baud rate for serial port (NEW)
 make
 
@@ -18,8 +24,11 @@ sda            8:0    1   128M  0 disk
 run `make clean ; make menuconfig`,  configure with the below options, then press 'q' and select the option to save. then run `make`. then `cp /home/mks/klipper/out/klipper.uf2 /home/mks/gcode_files/sda1`, and restart the printer
 
 [*] Enable extra low-level configuration options
+
 Micro-controller Architecture (Raspberry Pi RP2040)
+
 Flash chip (W25Q080 with CLKDIV 2)
+
 Communication interface (USB)
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
