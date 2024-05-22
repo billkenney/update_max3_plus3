@@ -19,6 +19,7 @@ make
 3. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer. run lsblk and if it shows this output you can continue. 
 
 sda            8:0    1   128M  0 disk
+
 └─sda1         8:1    1   128M  0 part /home/mks/gcode_files/sda1
 
 run `make clean ; make menuconfig`,  configure with the below options, then press 'q' and select the option to save. then run `make`. then `cp /home/mks/klipper/out/klipper.uf2 /home/mks/gcode_files/sda1`, and restart the printer
