@@ -1,5 +1,5 @@
 1. write this image to your emmc: https://drive.google.com/file/d/169c8aaMe8YdqOP-cswjxlOCQqbp_6HrL/view?usp=drivesdk
-2. to flash your motherboard mcu: `make clean ; make menuconfig`. configure with the below options, then press 'q' and select the option to save. then run `make`. download ~/klipper/out/klipper.bin to uour computer, rename it X_4.bin, put it on a micro sd card, plug it into the printer, and restart the printer. 
+2. to flash your motherboard mcu: `make clean ; make menuconfig`. configure with the below options, then press 'q' and select the option to save. then run `make`. download ~/klipper/out/klipper.bin to your computer, rename it X_4.bin, put it on a micro sd card, plug it into the printer, and restart the printer. 
 
 [*] Enable extra low-level configuration options
 
