@@ -37,3 +37,5 @@ note that it is not necessary to use the patch files provided by qidi (step 12),
 18. to get your camera working in fluidd, you need to go into the settings menu and add the camera similar to the following settings
 
 ![Screen Shot 2024-05-21 at 2 05 32 PM](https://github.com/billkenney/update_max3_plus3/assets/30010560/0355ab05-e16e-4db3-ac47-b6ec409742c1)
+
+19. if you want to run the resonance testing macro, you need to install these: `sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev ; ~/klippy-env/bin/pip install -v numpy`
