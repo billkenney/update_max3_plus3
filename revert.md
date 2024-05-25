@@ -34,7 +34,7 @@ Communication interface (USB)
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
 
-4. to flash the rpi mcu, ssh into your printer and run cd ~/klipper ; make clean ; make menuconfig and configure as shown in the below image. Then press 'q' and select the option to save, then sudo service klipper stop ; make flash ; sudo service klipper start
+4. to flash the rpi mcu, ssh into your printer and run `cd ~/klipper ; make clean ; make menuconfig` and configure as shown in the below image. Then press 'q' and select the option to save, then `sudo service klipper stop ; make flash ; sudo service klipper start`
 
 ![325061507-b820ced1-ac3a-4627-b366-04fd95770e5d](https://github.com/billkenney/update_max3_plus3/assets/30010560/de954ba9-a158-42d0-b564-d3a71169f4bc)
 
