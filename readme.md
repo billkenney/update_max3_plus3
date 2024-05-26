@@ -28,7 +28,7 @@ if you need to revert for some reason, you can follow these steps to flash the m
 
 ![IMG_2028](https://github.com/billkenney/update_max3_plus3/assets/30010560/f5cf29b5-9c42-475f-9e84-a78b302265bf)
 
-9. if you have a webcam, run `vidpath=$( ls -la /dev/v4l/by-id/ | grep index0 | grep -o 'video[0-9]' ) ; sed -i "s/device: \/dev\/video[0-9]/device: \/dev\/$vidpath/;s/resolution: [0-9]*x[0-9]*/resolution: 1280x960/" ~/klipper_config/config/crowsnest.conf`. if you do not have a webcam, run `cd ~ ; sudo service crowsnest stop ; sudo rm -rf crowsnest ; rm ~/klipper_config/config/crowsnest.conf ; sudo systemctl disable crowsnest.service ; sudo rm /etc/systemd/system/crowsnest.service ; sudo systemctl daemon-reload`. you may also have to delete the camera in fluidd. restart your printer and you should have the latest software and a working screen. 
+9. if you have a webcam, run `vidpath=$( ls -la /dev/v4l/by-id/ | grep index0 | grep -o 'video[0-9]' ) ; sed -i "s/device: \/dev\/video[0-9]/device: \/dev\/$vidpath/;s/resolution: [0-9]*x[0-9]*/resolution: 1280x960/" ~/klipper_config/config/crowsnest.conf ; sudo service crowsnest restart`. if you do not have a webcam, run `cd ~ ; sudo service crowsnest stop ; sudo rm -rf crowsnest ; rm ~/klipper_config/config/crowsnest.conf ; sudo systemctl disable crowsnest.service ; sudo rm /etc/systemd/system/crowsnest.service ; sudo systemctl daemon-reload`. you may also have to delete the camera in fluidd. restart your printer and you should have the latest software and a working screen. 
 
 10. if you want to run the resonance testing macro, you need to install these: `sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev ; ~/klippy-env/bin/pip install -v numpy`
 
