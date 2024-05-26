@@ -2,9 +2,15 @@ this guide will allow you to update qidi max3 or plus3 to debian bookworm with t
 
 qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). other people have said the patch files cause problems, so i would recommend not installing them. 
 
-if you want to try the much more complicated manual install method, you can follow the steps outlined here: https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
+if you want to try the much more complicated manual install method, you can follow these steps:
 
-if you need to revert for some reason, you can follow these steps to flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
+manual steps for the max3 with the bltouch: https://github.com/billkenney/update_max3_plus3/blob/main/max3-bltouch.md
+
+manual steps for the max3 with the inductive probe: https://github.com/billkenney/update_max3_plus3/blob/main/max3-probe.md
+
+manual steps for the plus3: https://github.com/billkenney/update_max3_plus3/blob/main/plus3.md
+
+if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
 
 1. write this image to your emmc: https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update/qidi_update.img.7z
 
