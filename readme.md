@@ -1,16 +1,10 @@
-this guide will allow you to update qidi max3 or plus3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. the easiest way is to write the qidi_update.img file to your emmc, flash the mcus, then replace the printer.cfg (if you have the max3 with the probe or the plus3). if you have the max3 with the bltouch, you don't have to do much other than flashing the mcus. if you're unable to add wifi connections on the screen, you can run `sudo nmtui` to use the network-manager service to create or manage network connections. default user is 'mks' and password (for ssh and root) is 'makerbase'
+this guide will allow you to update qidi max3 or plus3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12). if you're unable to add wifi connections on the screen, you can run `sudo nmtui` to use the network-manager service to create or manage network connections. the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
 
-qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). other people have said the patch files cause problems, so i would recommend not installing them. 
-
-if you want to try the much more complicated manual install method, you can follow these steps:
-
-manual steps for the max3 with the bltouch: https://github.com/billkenney/update_max3_plus3/blob/main/max3-bltouch.md
-
-manual steps for the max3 with the inductive probe: https://github.com/billkenney/update_max3_plus3/blob/main/max3-probe.md
-
-manual steps for the plus3: https://github.com/billkenney/update_max3_plus3/blob/main/plus3.md
+if you want to try the much more complicated manual install method, you can follow the manual steps: https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
 
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
+
+qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). other people have said the patch files cause problems, so i would recommend skipping steps 11-12
 
 1. write this image to your emmc: https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update/qidi_update.img.7z
 
@@ -28,7 +22,7 @@ if you want to revert for some reason, you can follow these steps to revert to t
 
 6. ssh into your printer and run `path=$(ls /dev/serial/by-id/*) ; printf "[mcu MKS_THR]\nserial:$path\n" > ~/klipper_config/MKS_THR.cfg ; rm ~/klipper_config/config/MKS_THR.cfg ; ln -s ~/klipper_config/MKS_THR.cfg ~/klipper_config/config/MKS_THR.cfg`
 
-7. if you are not using qidi's patch files (recommended), for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`. for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`
+7. if you are skipping the installation of qidi's patch files (which i recommend), for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`. for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`. you can skip this step if you have the bltouch
 
 8. to install the screen firmware (which is not necessary if you've already installed the latest firmware on your printer), run `sudo mv /root/800_480.tft.bak /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image:
 
