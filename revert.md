@@ -4,6 +4,8 @@
 
 ![Screen Shot 2024-05-27 at 4 30 05 PM](https://github.com/billkenney/update_max3_plus3/assets/30010560/67bde4b3-5f28-425b-ae25-d2454a5288a7)
 
+![325057677-0d15df45-8cd8-4e4c-88ec-a71b152b8cbb](https://github.com/billkenney/update_max3_plus3/assets/30010560/7448d933-47bd-43db-b827-41d2d2834b5e)
+
 3. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
