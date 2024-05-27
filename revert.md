@@ -10,7 +10,7 @@
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
 
-ssh into your printer. run lsblk and if it shows this output you can continue:
+ssh into your printer. run `lsblk` and if it shows this output you can continue:
 
 sda            8:0    1   128M  0 disk
 
