@@ -14,7 +14,7 @@ qidi has released some patch files, which, as far as i can tell, only allow you 
 
 ![325057677-0d15df45-8cd8-4e4c-88ec-a71b152b8cbb](https://github.com/billkenney/update_max3_plus3/assets/30010560/ce1f6465-d539-4137-80bd-90f31bab7661)
 
-4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt ; sudo systemctl daemon-reload ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; mv klipper.uf2 /mnt` then restart your printer. if you don't unplug all usb devices, i think the extruder is available at /dev/sdb1, you can check with `sudo fdisk -l`, in which case you could probably run `sudo mount /dev/sdb1 /mnt ; sudo systemctl daemon-reload ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; mv klipper.uf2 /mnt` to flash the mcu. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again
+4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt`. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again before continuing. if it mounts with no errors, run `sudo systemctl daemon-reload ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; mv klipper.uf2 /mnt` then restart your printer
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
 
@@ -24,13 +24,17 @@ qidi has released some patch files, which, as far as i can tell, only allow you 
 
 6. ssh into your printer and run `path=$(ls /dev/serial/by-id/*) ; printf "[mcu MKS_THR]\nserial:$path\n" > ~/klipper_config/MKS_THR.cfg ; rm ~/klipper_config/config/MKS_THR.cfg ; ln -s ~/klipper_config/MKS_THR.cfg ~/klipper_config/config/MKS_THR.cfg`
 
-7. if you are skipping the installation of qidi's patch files (which i recommend), for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`. for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`. you can skip this step if you have the bltouch
+7. if you are skipping the installation of qidi's patch files (which i recommend), for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`.
+
+for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`. you can skip this step if you have the bltouch
 
 8. to install the screen firmware (which is not necessary if you've already installed the latest firmware on your printer), run `sudo mv /root/800_480.tft.bak /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image:
 
 ![IMG_2028](https://github.com/billkenney/update_max3_plus3/assets/30010560/f5cf29b5-9c42-475f-9e84-a78b302265bf)
 
-9. if you have a webcam, run `vidpath=$( ls -la /dev/v4l/by-id/ | grep index0 | grep -o 'video[0-9]' ) ; sed -i "s/device: \/dev\/video[0-9]/device: \/dev\/$vidpath/;s/resolution: [0-9]*x[0-9]*/resolution: 1280x960/" ~/klipper_config/config/crowsnest.conf ; sudo service crowsnest restart`. if you do not have a webcam, run `cd ~ ; sudo service crowsnest stop ; sudo rm -rf crowsnest ; rm ~/klipper_config/config/crowsnest.conf ; sudo systemctl disable crowsnest.service ; sudo rm /etc/systemd/system/crowsnest.service ; sudo systemctl daemon-reload`. you may also have to delete the camera in fluidd. restart your printer and you should have the latest software and a working screen. 
+9. if you have a webcam, run `vidpath=$( ls -la /dev/v4l/by-id/ | grep index0 | grep -o 'video[0-9]' ) ; sed -i "s/device: \/dev\/video[0-9]/device: \/dev\/$vidpath/;s/resolution: [0-9]*x[0-9]*/resolution: 1280x960/" ~/klipper_config/config/crowsnest.conf ; sudo service crowsnest restart`
+
+if you do not have a webcam, run `cd ~ ; sudo service crowsnest stop ; sudo rm -rf crowsnest ; rm ~/klipper_config/config/crowsnest.conf ; sudo systemctl disable crowsnest.service ; sudo rm /etc/systemd/system/crowsnest.service ; sudo systemctl daemon-reload`. you may also have to delete the camera in fluidd. restart your printer and you should have the latest software and a working screen. 
 
 10. if you want to run the resonance testing macro, you need to install these: `sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev ; ~/klippy-env/bin/pip install -v numpy`
 
