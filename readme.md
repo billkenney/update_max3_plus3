@@ -12,6 +12,8 @@ qidi has released some patch files, which, as far as i can tell, only allow you 
 
 3. to flash the mcu firmware, download this file, copy it to a micro sd card, plug it into the printer, and restart your printer: https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/X_4.bin
 
+![325057677-0d15df45-8cd8-4e4c-88ec-a71b152b8cbb](https://github.com/billkenney/update_max3_plus3/assets/30010560/ce1f6465-d539-4137-80bd-90f31bab7661)
+
 4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt ; sudo systemctl daemon-reload ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; mv klipper.uf2 /mnt` then restart your printer. if you don't unplug all usb devices, i think the extruder is available at /dev/sdb1, you can check with `sudo fdisk -l`, in which case you could probably run `sudo mount /dev/sdb1 /mnt ; sudo systemctl daemon-reload ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; mv klipper.uf2 /mnt` to flash the mcu. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
