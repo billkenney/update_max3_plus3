@@ -1,8 +1,6 @@
 1. write this image to your emmc: https://drive.google.com/file/d/169c8aaMe8YdqOP-cswjxlOCQqbp_6HrL/view?usp=drivesdk
 
-2. to flash your motherboard mcu: `cd ~/klipper ; make clean ; make menuconfig`. configure with the below options, then press 'q' and select the option to save. then run `make`. download ~/klipper/out/klipper.bin to your computer, rename it X_4.bin, put it on a micro sd card, plug it into the printer, and restart the printer. 
-
-![Screen Shot 2024-05-27 at 4 30 05 PM](https://github.com/billkenney/update_max3_plus3/assets/30010560/67bde4b3-5f28-425b-ae25-d2454a5288a7)
+2. to flash the mcu firmware, download this file, rename it to 'X_4.bin', copy it to a micro sd card, plug it into the printer, and restart your printer: https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/old_X_4.bin
 
 ![325057677-0d15df45-8cd8-4e4c-88ec-a71b152b8cbb](https://github.com/billkenney/update_max3_plus3/assets/30010560/7448d933-47bd-43db-b827-41d2d2834b5e)
 
@@ -10,15 +8,11 @@
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
 
-ssh into your printer. run `lsblk` and if it shows this output you can continue:
+ssh into your printer. run `lsblk` and if it shows the below output, run run `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/old_klipper.uf2 ; mv old_klipper.uf2 ~/gcode_files/sda1/klipper.uf2`, then restart your printer
 
 sda            8:0    1   128M  0 disk
 
 └─sda1         8:1    1   128M  0 part /home/mks/gcode_files/sda1
-
-run `make clean ; make menuconfig`,  configure with the below options, then press 'q' and select the option to save. then run `make`. then `cp /home/mks/klipper/out/klipper.uf2 /home/mks/gcode_files/sda1`, and restart the printer
-
-![Screen Shot 2024-05-27 at 4 31 07 PM](https://github.com/billkenney/update_max3_plus3/assets/30010560/92d1ed8f-ba06-4f2d-bd2c-389bd84a6b26)
 
 4. to flash the rpi mcu, ssh into your printer and run `cd ~/klipper ; make clean ; make menuconfig` and configure as shown in the below image. Then press 'q' and select the option to save, then `sudo service klipper stop ; make flash ; sudo service klipper start`
 
