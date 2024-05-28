@@ -36,7 +36,7 @@ qidi has released some patch files, which, as far as i can tell, only allow you 
 
 ![Screen Shot 2024-05-21 at 12 45 51 PM](https://github.com/billkenney/update_max3_plus3/assets/30010560/45925ca0-fbb1-432f-952c-ab1e7268a6cb)
 
-13. if your screen shows the firmware update has already started, leave it on until the update is complete. otherwise turn your printer off, wait for a bit, and turn it back on--the screen should be white with a progress indicator as shown below: 
+13. if your screen shows the firmware update has already started, leave it on until the update is complete. otherwise turn your printer off, wait for a bit, and turn it back on--the screen should be white with a progress indicator as shown below (it could take a few minutes to start, so be patient):
 
 ![IMG_2028](https://github.com/billkenney/update_max3_plus3/assets/30010560/f5cf29b5-9c42-475f-9e84-a78b302265bf)
 
