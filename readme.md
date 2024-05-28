@@ -6,9 +6,9 @@ if you want to revert for some reason, you can follow these steps to revert to t
 
 qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). other people have said the patch files cause problems, so i would recommend skipping steps 11-12
 
-using a terminal client such as putty for windows, Terminal on macos or linux, or an app like shelly or terminus on your phone, ssh into your printer: `ssh mks@printer.ip.address` replacing 'printer.ip.address' with your printers ip address. the username is 'mks' and the password is 'makerbase' any time you are prompted for a password
-
 1. write this image to your emmc: https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update/qidi_update.img.7z
+
+using a terminal client such as putty for windows, Terminal on macos or linux, or an app like shelly or terminus on your phone, ssh into your printer: `ssh mks@printer.ip.address` replacing 'printer.ip.address' with your printers ip address. the username is 'mks' and the password is 'makerbase' any time you are prompted for a password
 
 2. if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`. the language is set to English and the timezone is set to America/Chicago. to change this, run `sudo dpkg-reconfigure locales`
 
