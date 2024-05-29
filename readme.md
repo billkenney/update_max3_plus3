@@ -26,9 +26,9 @@ using a terminal client such as putty for windows, Terminal on macos or linux, o
 
 6. ssh into your printer and run `sudo mv ~/klipper_config/MKS_THR.cfg ~/klipper_config/MKS_THR.cfg.bak ; path=$(ls /dev/serial/by-id/*) ; printf "[mcu MKS_THR]\nserial:$path\n" > ~/klipper_config/MKS_THR.cfg ; rm ~/klipper_config/config/MKS_THR.cfg ; ln -s ~/klipper_config/MKS_THR.cfg ~/klipper_config/config/MKS_THR.cfg`
 
-7. if you are skipping the installation of qidi's patch files (which i recommend), for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`.
+7. you can skip this step if you have the max3 with the bltouch. assuming you are skipping the installation of qidi's patch files (which i recommend), for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`.
 
-for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`. you can skip this step if you have the bltouch
+for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`
 
 8. to install the screen firmware (which is not necessary if you've already installed the latest firmware on your printer), run `sudo mv /root/800_480.tft.bak /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient):
 
@@ -36,7 +36,7 @@ for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max
 
 9. if you have a webcam, run `vidpath=$( ls -la /dev/v4l/by-id/ | grep index0 | grep -o 'video[0-9]' ) ; sed -i "s/device: \/dev\/video[0-9]/device: \/dev\/$vidpath/;s/resolution: [0-9]*x[0-9]*/resolution: 1280x960/" ~/klipper_config/config/crowsnest.conf ; sudo service crowsnest restart`
 
-if you do not have a webcam, run `cd ~ ; sudo service crowsnest stop ; sudo rm -rf crowsnest ; rm ~/klipper_config/config/crowsnest.conf ; sudo systemctl disable crowsnest.service ; sudo rm /etc/systemd/system/crowsnest.service ; sudo systemctl daemon-reload`. you may also have to delete the camera in fluidd. restart your printer and you should have the latest software and a working screen. 
+if you do not have a webcam, run `cd ~ ; sudo service crowsnest stop ; sudo rm -rf crowsnest ; rm ~/klipper_config/config/crowsnest.conf ; sudo systemctl disable crowsnest.service ; sudo rm /etc/systemd/system/crowsnest.service ; sudo systemctl daemon-reload`. you may also have to delete the camera in fluidd. restart your printer and you should have the latest software and a working screen
 
 10. if you want to run the resonance testing macro, you need to install these: `sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev ; ~/klippy-env/bin/pip install -v numpy`
 
