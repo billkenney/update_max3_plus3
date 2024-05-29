@@ -26,7 +26,9 @@ using a terminal client such as putty for windows, Terminal on macos or linux, o
 
 6. ssh into your printer and run `sudo mv ~/klipper_config/MKS_THR.cfg ~/klipper_config/MKS_THR.cfg.bak ; path=$(ls /dev/serial/by-id/*) ; printf "[mcu MKS_THR]\nserial:$path\n" > ~/klipper_config/MKS_THR.cfg ; rm ~/klipper_config/config/MKS_THR.cfg ; ln -s ~/klipper_config/MKS_THR.cfg ~/klipper_config/config/MKS_THR.cfg`
 
-7. you can skip this step if you have the max3 with the bltouch. assuming you are skipping the installation of qidi's patch files (which i recommend), for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`.
+7. you can skip this step if you have the max3 with the bltouch
+
+for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`.
 
 for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`
 
