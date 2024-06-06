@@ -1,7 +1,9 @@
 this guide will allow you to update qidi max3 / plus3 /smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12)
 
 ################################################################################
+
 NOTE: i have added support for the smart3 based on a comment from qidi (https://github.com/QIDITECH/QIDI_MAX3/issues/53#issuecomment-2151230861) stating that the klipper mcu firmware files are the same--so you can use the ones from my repo, and the only difference is xindi (likely because the screen is a different size) and the printer.cfg file. you can follow the same outlined below, the only difference is that you have to reinstall the smart3 firmware (step 6), which installs xindi and the associated makerbase-client service. i am not aware of anyone updating the smart3 to the latest software yet, so this method is untested and could brick your printer. probably a good idea to have a backup emmc on hand if you can't get it to work
+
 ################################################################################
 
 if you want to try the much more complicated manual install method, you can follow the manual steps (i have not created a manual guide for the smart3): https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
@@ -53,7 +55,9 @@ to install the screen firmware for the smart3 (which is not necessary if you ins
 10. if you want to run the resonance testing macro, you need to install these: `sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev ; ~/klippy-env/bin/pip install -v numpy`
 
 ################################################################################
+
 the installation of these patch files is not necessary, and i recommended you skip these steps as they could cause problems. although they could get thumbnails working on the screen again
+
 ################################################################################
 
 11. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
