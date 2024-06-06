@@ -26,6 +26,8 @@ using a terminal client such as putty for windows, Terminal on macos or linux, o
 
 6. ssh into your printer and run `sudo mv ~/klipper_config/MKS_THR.cfg ~/klipper_config/MKS_THR.cfg.bak ; path=$(ls /dev/serial/by-id/*) ; printf "[mcu MKS_THR]\nserial:$path\n" > ~/klipper_config/MKS_THR.cfg ; rm ~/klipper_config/config/MKS_THR.cfg ; ln -s ~/klipper_config/MKS_THR.cfg ~/klipper_config/config/MKS_THR.cfg`
 
+if you have the smart3, you need to reinstall the firmware because it is different than the firmware for the max3 / plus3: run `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/mksclient-smart3.deb ; sudo dpkg -i mksclient-smart3.deb`
+
 7. you can skip this step if you have the max3 with the bltouch
 
 for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`.
@@ -34,9 +36,9 @@ for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max
 
 for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3.cfg ; mv printer-smart3.cfg ~/klipper_config/config/printer.cfg`
 
-8. to install the screen firmware for the max3 or the plus3 (which is not necessary if you've already installed the latest firmware on your printer), run `sudo mv /root/800_480.tft.bak /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
+8. to install the screen firmware for the max3 or the plus3 (which is not necessary if you installed the latest screen firmware on your printer prior to updating), run `sudo mv /root/800_480.tft.bak /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
 
-if you have the plus3, run `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/800_480-smart3.tft ; sudo mv 800_480-smart3.tft /root/800_480.tft`, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
+to install the screen firmware for the smart3 (which is not necessary if you installed the latest screen firmware on your printer prior to updating), run `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/800_480-smart3.tft ; sudo mv 800_480-smart3.tft /root/800_480.tft`, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
 
 ![IMG_2028](https://github.com/billkenney/update_max3_plus3/assets/30010560/f5cf29b5-9c42-475f-9e84-a78b302265bf)
 
