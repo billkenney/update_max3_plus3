@@ -1,6 +1,6 @@
-this guide will allow you to update qidi max3 or plus3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12). if you're unable to add wifi connections on the screen, you can run `sudo nmtui` to use the network-manager service to create or manage network connections. the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
+this guide will allow you to update qidi max3 / plus3 /smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12). if you're unable to add wifi connections on the screen, you can run `sudo nmtui` to use the network-manager service to create or manage network connections. the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
 
-if you want to try the much more complicated manual install method, you can follow the manual steps: https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
+if you want to try the much more complicated manual install method, you can follow the manual steps (i have not created a manual guide for the smart3): https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
 
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
 
@@ -32,7 +32,11 @@ for the max3 with the inductive probe run: `wget https://raw.githubusercontent.c
 
 for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`
 
-8. to install the screen firmware (which is not necessary if you've already installed the latest firmware on your printer), run `sudo mv /root/800_480.tft.bak /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient):
+for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3.cfg ; mv printer-smart3.cfg ~/klipper_config/config/printer.cfg`
+
+8. to install the screen firmware for the max3 or the plus3 (which is not necessary if you've already installed the latest firmware on your printer), run `sudo mv /root/800_480.tft.bak /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
+
+if you have the plus3, run `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/800_480-smart3.tft ; sudo mv 800_480-smart3.tft /root/800_480.tft`, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
 
 ![IMG_2028](https://github.com/billkenney/update_max3_plus3/assets/30010560/f5cf29b5-9c42-475f-9e84-a78b302265bf)
 
@@ -49,5 +53,7 @@ the installation of these patch files is not necessary, and i recommended you sk
 for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe_patch.cfg ; mv printer-max3_probe_patch.cfg ~/klipper_config/config/printer.cfg`
 
 for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3_patch.cfg ; mv printer-plus3_patch.cfg ~/klipper_config/config/printer.cfg`
+
+for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3_patch.cfg ; mv printer-smart3_patch.cfg ~/klipper_config/config/printer.cfg`
 
 12. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
