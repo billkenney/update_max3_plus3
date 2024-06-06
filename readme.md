@@ -1,5 +1,7 @@
 this guide will allow you to update qidi max3 / plus3 /smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12)
 
+if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
+
 ################################################################################
 
 NOTE: i have added support for the smart3 based on a comment from qidi (https://github.com/QIDITECH/QIDI_MAX3/issues/53#issuecomment-2151230861) stating that the klipper mcu firmware files are the same--so you can use the ones from my repo, and the only difference is xindi (likely because the screen is a different size) and the printer.cfg file. you can follow the same process outlined below, the only difference is that you have to reinstall the smart3 firmware (see step 6), which will install the correct version of xindi for your printer. i am not aware of anyone updating the smart3 to the latest software yet, so this method is 100% untested and could brick your printer. probably a good idea to have a backup emmc (or backup image and emmc adapter) on hand if you can't get it to work
