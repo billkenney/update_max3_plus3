@@ -9,7 +9,21 @@ in order to get this image working, you have to run the following commands:
 run `sudo visudo` and remove the below line, then ctrl + x and y to save the file
 Defaults env_keep+="http_proxy https_proxy no_proxy"
 
-you still have to flash the mcus, and, if you have the plus3 or smart3, you have to run steps 7-9. im not sure what the printer.cfg file looks like on the qidi image, so you may have to modify slightly if you have the max3 with the bltouch or the probe
+you still have to flash the mcus, and, if you have the plus3 or smart3, you have to run steps 7-9. if you have the max3 with the bltouch, you need to replace the [probe] section of the printer.cfg with the following:
+
+`[bltouch]
+pin: ^!MKS_THR:gpio21
+control_pin:MKS_THR:gpio11
+stow_on_each_sample: False
+x_offset: 28
+y_offset: 4.4
+z_offset: 0.0
+speed: 5
+samples: 2
+samples_result: average
+sample_retract_dist: 3.0
+samples_tolerance: 0.08
+samples_tolerance_retries:3`
 
 ################################################################################
 
