@@ -2,7 +2,7 @@ this guide will allow you to update qidi max3 / plus3 /smart3 to debian bookworm
 
 if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
 
-the wifi menu on the printer screen does not work after upgrading. you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically reconnect on reboot
+the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot
 
 ################################################################################
 
