@@ -2,6 +2,8 @@ this guide will allow you to update qidi max3 / plus3 /smart3 to debian bookworm
 
 if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
 
+the wifi menu on the printer screen does not work after upgrading. you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically reconnect on reboot
+
 ################################################################################
 
 NOTE: i have added support for the smart3 based on a comment from qidi (https://github.com/QIDITECH/QIDI_MAX3/issues/53#issuecomment-2151230861) stating that the klipper mcu firmware files are the same--so you can use the ones from my repo, and the only difference is xindi (likely because the screen is a different size) and the printer.cfg file. you can follow the same process outlined below, the only difference is that you have to reinstall the smart3 firmware (see step 6), which will install the correct version of xindi for your printer. i am not aware of anyone updating the smart3 to the latest software yet, so this method is 100% untested and could brick your printer. probably a good idea to have a backup emmc (or backup image and emmc adapter) on hand if you can't get it to work
@@ -12,9 +14,9 @@ if you want to try the much more complicated manual install method, you can foll
 
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
 
-qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). other people have said the patch files cause problems, so i would recommend skipping steps 11-12
+qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 11-12
 
-if you're unable to add wifi connections on the screen, you can run `sudo nmtui` to use the network-manager service to create or manage network connections. the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
+the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
 
 1. write this image to your emmc: https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update/qidi_update.img.7z
 
