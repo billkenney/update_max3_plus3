@@ -17,21 +17,8 @@ qidi's updated printer.cfg is quite a bit different than the one that ships with
 
 if you have the max3 with the inductive probe, skip step 7 and complete steps 8-9
 
-if you have the max3 with the bltouch, skip step 7 and complete steps 8-9, however, you also need to replace the [probe] section of the printer.cfg with the following:
-
-[bltouch]<br>
-sensor_pin: ^!MKS_THR:gpio21<br>
-control_pin:MKS_THR:gpio11<br>
-stow_on_each_sample: False<br>
-x_offset: 28<br>
-y_offset: 4.4<br>
-z_offset: 0.0<br>
-speed: 5<br>
-samples: 2<br>
-samples_result: average<br>
-sample_retract_dist: 3.0<br>
-samples_tolerance: 0.08<br>
-samples_tolerance_retries:3
+if you have the max3 with the bltouch, skip step 7 and complete steps 8-9, however, you also need to modify some references to 'probe' in the printer.cfg file and the gcode_macro.cfg. run these commands: <br>
+`sed -i 's/^\[probe\]/\[bltouch\]/;s/pin: \^\!MKS_THR:gpio21/sensor_pin:\^\!MKS_THR:gpio21\ncontrol_pin:MKS_THR:gpio11\nstow_on_each_sample: False/' ~/printer_data/config/printer.cfg ; sed -i 's/printer\.configfile\.settings\.probe\.x_offset/printer\.configfile\.settings\.bltouch\.x_offset/g;s/printer\.configfile\.settings\.probe\.y_offset/printer\.configfile\.settings\.bltouch\.y_offset/g' ~/printer_data/config/gcode_macro.cfg`
 
 ################################################################################
 
