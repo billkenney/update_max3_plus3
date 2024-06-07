@@ -2,7 +2,7 @@
 
 qidi has unoficially released a completely updated image for the max3 with all of the newest software. but the company itself is not providing warranty for updated systems. based on the readme, it appears to fix the issues with the image preview and the wifi menu on the screen that you run into if you follow my guide. obviously, a qidi employee is also more familiar with the qidi-specific software, and i'm sure he's done more testing than i have, so i would install the image from @CChen616: https://github.com/CChen616/QIDI_Max3_Bookworm
 
-you still have to flash the mcus, and, if you have the plus3 or smart3, you have to run steps 7-9. im not sure what the printer.cfg file looks like on the qidi image, so you may have to modify slightly if you have the bltouch or the probe
+you still have to flash the mcus, and, if you have the plus3 or smart3, you have to run steps 7-9. im not sure what the printer.cfg file looks like on the qidi image, so you may have to modify slightly if you have the max3 with the bltouch or the probe
 
 ################################################################################
 
