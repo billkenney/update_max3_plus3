@@ -1,10 +1,10 @@
-#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
+################################################################################
 
 qidi has unoficially released a completely updated image for the max3 with all of the newest software. but the company itself is not providing warranty for updated systems. based on the readme, it appears to fix the issues with the image preview and the wifi menu on the screen that you run into if you follow my guide. obviously, a qidi employee is also more familiar with the qidi-specific software, and i'm sure he's done more testing than i have, so i would install the image from @CChen616: https://github.com/CChen616/QIDI_Max3_Bookworm
 
 you still have to flash the mcus, and, if you have the plus3 or smart3, you have to run steps 7-9. im not sure what the printer.cfg file looks like on the qidi image, so you may hsbe to modify slightly if you have the bltouch or the probe
 
-#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
+################################################################################
 
 this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12)
 
