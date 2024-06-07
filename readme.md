@@ -17,7 +17,7 @@ qidi's updated printer.cfg is quite a bit different than the one that ships with
 
 if you have the max3 with the inductive probe, skip step 7 and complete steps 8-9
 
-if you have the max3 with the bltouch, skip step 7 and complete steps 8-9. you also need to replace the [probe] section of the printer.cfg with the following:
+if you have the max3 with the bltouch, skip step 7 and complete steps 8-9, however, you also need to replace the [probe] section of the printer.cfg with the following:
 
 [bltouch]<br>
 sensor_pin: ^!MKS_THR:gpio21<br>
@@ -35,7 +35,7 @@ samples_tolerance_retries:3
 
 ################################################################################
 
-this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12)
+this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-13)
 
 the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot
 
@@ -93,13 +93,16 @@ to install the screen firmware for the smart3 (which is not necessary if you ins
 
 10. if you want to run the resonance testing macro, you need to install these: `sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev ; ~/klippy-env/bin/pip install -v numpy`
 
+11. if you want to install moonraker-obico, run these commands then install with kiauh: 
+`sudo mkdir -p /root/.config/pip ; sudo printf "[global]\nbreak-system-packages = true\n" > /root/.config/pip/pip.conf ; sudo pip3 install -U urllib3 requests ; sudo apt install janus ; sudo systemctl enable janus ; sudo systemctl start janus`
+
 ################################################################################
 
 the installation of these patch files is not necessary, and i recommended you skip these steps as they could cause problems. although they could get thumbnails working on the screen again
 
 ################################################################################
 
-11. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
+12. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
 
 for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe_patch.cfg ; mv printer-max3_probe_patch.cfg ~/klipper_config/config/printer.cfg`
 
@@ -107,4 +110,4 @@ for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max
 
 for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3_patch.cfg ; mv printer-smart3_patch.cfg ~/klipper_config/config/printer.cfg`
 
-12. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
+13. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
