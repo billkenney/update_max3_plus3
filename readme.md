@@ -9,21 +9,23 @@ in order to get this image working, you have to run the following commands:
 run `sudo visudo` and remove the below line, then ctrl + x and y to save the file
 Defaults env_keep+="http_proxy https_proxy no_proxy"
 
-you still have to flash the mcus, and, if you have the plus3 or smart3, you have to run steps 7-9. if you have the max3 with the bltouch, you need to replace the [probe] section of the printer.cfg with the following:
+you still have to flash the mcus, and, if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`. fix your locale/timezone: `sudo dpkg-reconfigure locales`. find your time zone here: https://en.m.wikipedia.org/wiki/List_of_tz_database_time_zones (it should be in the format America/Chicago), then run `sudo timedatectl set-timezone [your_timezone] ; sudo timedatectl set-ntp 1` replacing [your_timezone] with your actual timezone
 
-`[bltouch]  
-pin: ^!MKS_THR:gpio21  
-control_pin:MKS_THR:gpio11  
-stow_on_each_sample: False  
-x_offset: 28  
-y_offset: 4.4  
-z_offset: 0.0  
-speed: 5  
-samples: 2  
-samples_result: average  
-sample_retract_dist: 3.0  
-samples_tolerance: 0.08  
-samples_tolerance_retries:3`
+if you have the plus3 or smart3, you have to run steps 7-9. if you have the max3 with the bltouch, you need to replace the [probe] section of the printer.cfg with the following:
+
+[bltouch]<br>
+pin: ^!MKS_THR:gpio21<br>
+control_pin:MKS_THR:gpio11<br>
+stow_on_each_sample: False<br>
+x_offset: 28<br>
+y_offset: 4.4<br>
+z_offset: 0.0<br>
+speed: 5<br>
+samples: 2<br>
+samples_result: average<br>
+sample_retract_dist: 3.0<br>
+samples_tolerance: 0.08<br>
+samples_tolerance_retries:3
 
 ################################################################################
 
@@ -51,7 +53,7 @@ the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
 
 using a terminal client such as putty for windows, Terminal on macos or linux, or an app like shelly or terminus on your phone, ssh into your printer: `ssh mks@printer.ip.address` replacing 'printer.ip.address' with your printers ip address. the username is 'mks' and the password is 'makerbase' any time you are prompted for a password
 
-2. if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`. the language is set to English and the timezone is set to America/Chicago. to change this, run `sudo dpkg-reconfigure locales`
+2. if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`. the language is set to English and the timezone is set to America/Chicago. to change this, run `sudo dpkg-reconfigure locales`. find your time zone here: https://en.m.wikipedia.org/wiki/List_of_tz_database_time_zones (it should be in the format America/Chicago), then run `sudo timedatectl set-timezone [your_timezone] ; sudo timedatectl set-ntp 1` replacing [your_timezone] with your actual timezone
 
 3. to flash the mcu firmware, download this file, copy it to a micro sd card, plug it into the printer, and restart your printer: https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/X_4.bin
 
