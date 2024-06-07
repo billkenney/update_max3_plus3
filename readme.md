@@ -6,7 +6,7 @@ in order to get this image working, you have to run the following commands:
 
 `sudo rm /etc/environment ; sudo touch /etc/environment ; sudo sed -i '/^\[http\]/d;/^\[https\]/d;/proxy/d' /root/.gitconfig ; sed -i '/^\[https\]/d;/proxy/d' /home/mks/.gitconfig ; sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list`
 
-run `sudo visudo` and remove the below line, then ctrl + x and y to save the file
+run `sudo visudo` and remove the below line, then ctrl + x and y to save the file<br>
 Defaults env_keep+="http_proxy https_proxy no_proxy"
 
 you still have to flash the mcus, and, if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`. fix your locale/timezone: `sudo dpkg-reconfigure locales`. find your time zone here: https://en.m.wikipedia.org/wiki/List_of_tz_database_time_zones (it should be in the format America/Chicago), then run `sudo timedatectl set-timezone [your_timezone] ; sudo timedatectl set-ntp 1` replacing [your_timezone] with your actual timezone
