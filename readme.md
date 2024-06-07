@@ -14,7 +14,7 @@ you still have to flash the mcus, and, if youre using a 32gb emmc, run `sudo sys
 if you have the plus3 or smart3, you have to run steps 7-9. if you have the max3 with the bltouch, you need to replace the [probe] section of the printer.cfg with the following:
 
 [bltouch]<br>
-pin: ^!MKS_THR:gpio21<br>
+sensor_pin: ^!MKS_THR:gpio21<br>
 control_pin:MKS_THR:gpio11<br>
 stow_on_each_sample: False<br>
 x_offset: 28<br>
