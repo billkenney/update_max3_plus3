@@ -9,9 +9,15 @@ in order to get this image working, you have to run the following commands:
 run `sudo visudo` and remove the below line, then ctrl + x and y to save the file<br>
 Defaults env_keep+="http_proxy https_proxy no_proxy"
 
-you still have to flash the mcus, and, if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`. fix your locale/timezone: `sudo dpkg-reconfigure locales`. find your time zone here: https://en.m.wikipedia.org/wiki/List_of_tz_database_time_zones (it should be in the format America/Chicago), then run `sudo timedatectl set-timezone [your_timezone] ; sudo timedatectl set-ntp 1` replacing [your_timezone] with your actual timezone
+if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`. fix your locale/timezone: `sudo dpkg-reconfigure locales`. find your time zone here: https://en.m.wikipedia.org/wiki/List_of_tz_database_time_zones (it should be in the format America/Chicago), then run `sudo timedatectl set-timezone [your_timezone] ; sudo timedatectl set-ntp 1` replacing [your_timezone] with your actual timezone
 
-if you have the plus3 or smart3, you have to run steps 7-9. if you have the max3 with the bltouch, you need to replace the [probe] section of the printer.cfg with the following:
+for all printers, you need to flash the firmware on the mcus. you can complete steps 3-5 of this guide or follow qidi's guide: https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891. i believe klipper.uf2 and X_4.bin are in the /root/klipper_modified folder of qidi's image, and they should be the same as the ones on this repo
+
+qidi's updated printer.cfg is quite a bit different than the one that ships with the firmware, and i'm not sure what changes would need to be made to get it working with the plus3/smart3. so plus3/smart3 owners probably have to complete steps 7-9 to get it working, or go through the changes on your own
+
+if you have the max3 with the inductive probe, skip step 7 and complete steps 8-9
+
+if you have the max3 with the bltouch, skip step 7 and complete steps 8-9. you also need to replace the [probe] section of the printer.cfg with the following:
 
 [bltouch]<br>
 sensor_pin: ^!MKS_THR:gpio21<br>
@@ -71,7 +77,7 @@ using a terminal client such as putty for windows, Terminal on macos or linux, o
 
 7. you can skip this step if you have the max3 with the bltouch
 
-for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`.
+for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`
 
 for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`
 
