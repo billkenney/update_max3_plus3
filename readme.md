@@ -2,12 +2,8 @@
 
 qidi has unoficially released a completely updated image for the max3 with all of the newest software. but the company itself is not providing warranty for updated systems. based on the readme, it appears to fix the issues with the image preview and the wifi menu on the screen that you run into if you follow my guide. obviously, a qidi employee is also more familiar with the qidi-specific software, and i'm sure he's done more testing than i have, so i would install the image from @CChen616: https://github.com/CChen616/QIDI_Max3_Bookworm
 
-in order to get this image working, you have to run the following commands:
-
-`sudo rm /etc/environment ; sudo touch /etc/environment ; sudo sed -i '/^\[http\]/d;/^\[https\]/d;/proxy/d' /root/.gitconfig ; sed -i '/^\[https\]/d;/proxy/d' /home/mks/.gitconfig ; sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list`
-
-run `sudo visudo` and remove the below line, then ctrl + x and y to save the file<br>
-Defaults env_keep+="http_proxy https_proxy no_proxy"
+in order to get this image working, you have to run the following commands:<br>
+`sudo rm /etc/environment ; sudo touch /etc/environment ; sudo sed -i '/^\[http\]/d;/^\[https\]/d;/proxy/d' /root/.gitconfig ; sed -i '/^\[https\]/d;/proxy/d' /home/mks/.gitconfig ; sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list ; sudo sed -i '/Defaults env_keep+="http_proxy https_proxy no_proxy"/d' /etc/sudoers`
 
 if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`. fix your locale/timezone: `sudo dpkg-reconfigure locales`. find your time zone here: https://en.m.wikipedia.org/wiki/List_of_tz_database_time_zones (it should be in the format America/Chicago), then run `sudo timedatectl set-timezone [your_timezone] ; sudo timedatectl set-ntp 1` replacing [your_timezone] with your actual timezone
 
@@ -18,7 +14,7 @@ qidi's updated printer.cfg is quite a bit different than the one that ships with
 if you have the max3 with the inductive probe, skip step 7 and complete steps 8-9
 
 if you have the max3 with the bltouch, skip step 7 and complete steps 8-9, however, you also need to modify some references to 'probe' in the printer.cfg file and the gcode_macro.cfg. run these commands: <br>
-`sed -i 's/^\[probe\]/\[bltouch\]/;s/pin: \^MKS_THR:gpio21/sensor_pin:\^\MKS_THR:gpio21\ncontrol_pin:MKS_THR:gpio11\nstow_on_each_sample: False/' ~/printer_data/config/printer.cfg ; sed -i 's/printer\.configfile\.settings\.probe\.x_offset/printer\.configfile\.settings\.bltouch\.x_offset/g;s/printer\.configfile\.settings\.probe\.y_offset/printer\.configfile\.settings\.bltouch\.y_offset/g' ~/printer_data/config/gcode_macro.cfg`
+`sed -i 's/endstop_pin:probe:z_virtual_endstop/endstop_pin:bltouch:z_virtual_endstop/;s/^\[probe\]/\[bltouch\]/;s/pin: \^MKS_THR:gpio21/sensor_pin:\^\MKS_THR:gpio21\ncontrol_pin:MKS_THR:gpio11\nstow_on_each_sample: False/' ~/printer_data/config/printer.cfg ; sed -i 's/printer\.configfile\.settings\.probe\.x_offset/printer\.configfile\.settings\.bltouch\.x_offset/g;s/printer\.configfile\.settings\.probe\.y_offset/printer\.configfile\.settings\.bltouch\.y_offset/g' ~/printer_data/config/gcode_macro.cfg`
 
 ################################################################################
 
