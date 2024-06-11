@@ -20,7 +20,9 @@ qidi's updated printer.cfg is quite a bit different than the one that ships with
 if you have the max3 with the inductive probe, skip step 7 and complete steps 8-9
 
 if you have the max3 with the bltouch, skip step 7 and complete steps 8-9, however, you also need to modify some references to 'probe' in the printer.cfg file and the gcode_macro.cfg. run these commands after updating if you use the image from @CChen616: <br>
-`sed -i 's/endstop_pin:probe:z_virtual_endstop/endstop_pin:bltouch:z_virtual_endstop/;s/^\[probe\]/\[bltouch\]/;s/pin: \^MKS_THR:gpio21/sensor_pin:\^\MKS_THR:gpio21\ncontrol_pin:MKS_THR:gpio11\nstow_on_each_sample: False/' ~/printer_data/config/printer.cfg ; sed -i 's/printer\.configfile\.settings\.probe\.x_offset/printer\.configfile\.settings\.bltouch\.x_offset/g;s/printer\.configfile\.settings\.probe\.y_offset/printer\.configfile\.settings\.bltouch\.y_offset/g' ~/printer_data/config/gcode_macro.cfg`
+`sed -i 's/pin: \^MKS_THR:gpio21/sensor_pin:\^\MKS_THR:gpio21\ncontrol_pin:MKS_THR:gpio11\nstow_on_each_sample: False/' ~/printer_data/config/printer.cfg ; sed -i 's/printer\.configfile\.settings\.probe\.x_offset/printer\.configfile\.settings\.bltouch\.x_offset/g;s/printer\.configfile\.settings\.probe\.y_offset/printer\.configfile\.settings\.bltouch\.y_offset/g' ~/printer_data/config/gcode_macro.cfg`
+
+you may or may not have to run the below command. i had to do this initially, but when i installed the btt sfs i have to reverse it. if you get errors about probecommandhelper then reverse it: sed -i `s/endstop_pin:probe:z_virtual_endstop/endstop_pin:bltouch:z_virtual_endstop/;s/^\[probe\]/\[bltouch\]/` ~/printer_data/config/printer.cfg
 
 ################################################################################
 
