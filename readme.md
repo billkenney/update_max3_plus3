@@ -1,40 +1,14 @@
-################################################################################
-
-the portion before #1 is for those who use the image from @CChen616. you can skip this section if youre using my image. both have minor issues, so its really up to you
-
-qidi has unoficially released a completely updated image for the max3 with all of the newest software. but the company itself is not providing warranty for updated systems. after a bit of testing, it appears to fix the issues with the image preview, but it only works sporadically. it seems to work better when you print ftom the screen (like it did with the old software). it does nothing when i click the network tab--it doesnt even go into network settings. so if you don't have ethernet, you should probably get an adapter before continuing. you can set up wifi wothout the screen (sudo nmtui) but you need to be able to ssh into your printer
-
-obviously, a qidi employee is more familiar with the qidi-specific software, and i'm sure he's done more testing than i have, so i would install the image from @CChen616: https://github.com/CChen616/QIDI_Max3_Bookworm
-
-in order to get the image from @CChen617 working, you have to run the following commands (this fixes the issues towards the bottom of his readme):<br>
-`sudo rm /etc/environment ; sudo touch /etc/environment ; sudo sed -i '/^\[http\]/d;/^\[https\]/d;/proxy/d' /root/.gitconfig ; sed -i '/^\[https\]/d;/proxy/d' /home/mks/.gitconfig ; sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list ; sudo sed -i '/Defaults env_keep+="http_proxy https_proxy no_proxy"/d' /etc/sudoers ; sudo rm /etc/wpa_supplicant/wpa_supplicant-wlan0.conf ; sudo touch /etc/wpa_supplicant/wpa_supplicant-wlan0.conf ; sudo service makerbase-wlan0 restart`
-
-fix your locale/timezone: `sudo dpkg-reconfigure locales`. find your time zone here: https://en.m.wikipedia.org/wiki/List_of_tz_database_time_zones (it should be in the format America/Chicago), then run `sudo timedatectl set-timezone [your_timezone] ; sudo timedatectl set-ntp 1` replacing [your_timezone] with your actual timezone
-
-if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`
-
-for all printers, you need to flash the firmware on the mcus. you can complete steps 3-5 of this guide or follow qidi's guide: https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891. i believe klipper.uf2 and X_4.bin are in the /root/klipper_modified folder of qidi's image, and they should be the same as the ones on this repo
-
-qidi's updated printer.cfg is quite a bit different than the one that ships with the firmware, and i'm not sure what changes would need to be made to get it working with the plus3/smart3. so plus3/smart3 owners probably have to complete steps 7-9 to get it working, or go through the changes on your own
-
-if you have the max3 with the inductive probe, skip step 7 and complete steps 8-9
-
-if you have the max3 with the bltouch, skip step 7 and complete steps 8-9, however, you also need to modify some references to 'probe' in the printer.cfg file and the gcode_macro.cfg. run these commands after updating if you use the image from @CChen616: <br>
-`sed -i 's/pin: \^MKS_THR:gpio21/sensor_pin:\^\MKS_THR:gpio21\ncontrol_pin:MKS_THR:gpio11\nstow_on_each_sample: False/' ~/printer_data/config/printer.cfg ; sed -i 's/printer\.configfile\.settings\.probe\.x_offset/printer\.configfile\.settings\.bltouch\.x_offset/g;s/printer\.configfile\.settings\.probe\.y_offset/printer\.configfile\.settings\.bltouch\.y_offset/g' ~/printer_data/config/gcode_macro.cfg`
-
-you may or may not have to run the below command. i had to do this initially, but when i installed the btt sfs i have to reverse it. if you get errors about probecommandhelper then reverse it: sed -i `s/endstop_pin:probe:z_virtual_endstop/endstop_pin:bltouch:z_virtual_endstop/;s/^\[probe\]/\[bltouch\]/` ~/printer_data/config/printer.cfg
-
-################################################################################
-
-this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-13)
-
-the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot
-
-################################################################################
+################################################################################################################################################################
 
 NOTE: i have added support for the smart3 based on a comment from qidi (https://github.com/QIDITECH/QIDI_MAX3/issues/53#issuecomment-2151230861) stating that the klipper mcu firmware files are the same--so you can use the ones from my repo, and the only difference is xindi (likely because the screen is a different size) and the printer.cfg file. you can follow the same process outlined below, the only difference is that you have to reinstall the smart3 firmware (see step 6), which will install the correct version of xindi for your printer. i am not aware of anyone updating the smart3 to the latest software yet, so this method is 100% untested and could brick your printer. probably a good idea to have a backup emmc (or backup image and emmc adapter) on hand if you can't get it to work
 
-################################################################################
+################################################################################################################################################################
+
+this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-13)
+
+if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer
+
+a qidi employee has also created an image. i installed it but ran into some pretty significant issues, and ended up reverting to my image. if you want to install his image, instructions are here: https://github.com/billkenney/update_max3_plus3/blob/main/cchen616-image.md
 
 if you want to try the much more complicated manual install method, you can follow the manual steps (i have not created a manual guide for the smart3): https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
 
@@ -89,11 +63,11 @@ to install the screen firmware for the smart3 (which is not necessary if you ins
 11. if you want to install moonraker-obico, run these commands then install with kiauh: 
 `sudo mkdir -p /root/.config/pip ; sudo printf "[global]\nbreak-system-packages = true\n" > /root/.config/pip/pip.conf ; sudo pip3 install -U urllib3 requests ; sudo apt install janus ; sudo systemctl enable janus ; sudo systemctl start janus`
 
-################################################################################
+################################################################################################################################################################
 
 the installation of these patch files is not necessary, and i recommended you skip these steps as they could cause problems. although they could get thumbnails working on the screen again
 
-################################################################################
+################################################################################################################################################################
 
 12. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
 
