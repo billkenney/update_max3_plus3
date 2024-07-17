@@ -32,7 +32,7 @@ if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem
 
 ![325057677-0d15df45-8cd8-4e4c-88ec-a71b152b8cbb](https://github.com/billkenney/update_max3_plus3/assets/30010560/ce1f6465-d539-4137-80bd-90f31bab7661)
 
-4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt`. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again before continuing. if it mounts with no errors, run `sudo systemctl daemon-reload ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; sudo mv klipper.uf2 /mnt` then restart your printer
+4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the BOOT bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt`. on the newer extruder boards, the BOOT button is on the top right. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again before continuing. if it mounts with no errors, run `sudo systemctl daemon-reload ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; sudo mv klipper.uf2 /mnt` then restart your printer
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
 
