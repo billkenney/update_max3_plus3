@@ -6,9 +6,9 @@ NOTE: i have added support for the smart3 based on a comment from qidi (https://
 
 this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-13)
 
-if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer. if you don't see wlan0 in the list of network adapters (using `ifconfig` for instance), you can run this command to rename the adapter interface: `sudo printf 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan0", NAME="wlan0"' > /etc/udev/rules.d/70-custom-names.rules ; udevadm control --reload-rules ; sudo reboot`
-
 a qidi employee has also created an image. i installed it but ran into some pretty significant issues, and ended up reverting to my image. if you want to install his image, instructions are here: https://github.com/billkenney/update_max3_plus3/blob/main/cchen616-image.md
+
+if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer. if you don't see wlan0 in the list of network adapters (using `ifconfig` for instance), you can run this command to rename the adapter interface: `sudo printf 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan0", NAME="wlan0"' > /etc/udev/rules.d/70-custom-names.rules ; udevadm control --reload-rules ; sudo reboot`
 
 if you want to try the much more complicated manual install method, you can follow the manual steps (i have not created a manual guide for the smart3): https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
 
