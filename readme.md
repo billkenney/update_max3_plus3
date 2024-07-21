@@ -10,6 +10,8 @@ a qidi employee has also created an image. i installed it but ran into some pret
 
 if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer. if you don't see wlan0 in the list of network adapters (using `ifconfig` for instance), you can run this command to rename the adapter interface: `sudo printf 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan0", NAME="wlan0"' > /etc/udev/rules.d/70-custom-names.rules ; udevadm control --reload-rules ; sudo reboot`
 
+also, as discussed in this issue (https://github.com/billkenney/update_max3_plus3/issues/6), qidi has apparently been using different wifi modules. if you have an aic8800 module, you may be able to follow these steos to get it working as the drivers apparently do not work on my image: https://forum.beagleboard.org/t/success-with-brostrend-usb-wifi-dongle-somewhere-to-document-the-process/37007/3
+
 if you want to try the much more complicated manual install method, you can follow the manual steps (i have not created a manual guide for the smart3): https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
 
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
