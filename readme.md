@@ -22,7 +22,9 @@ if you've done all of the steps and are getting a message that the system starts
 
 the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
 
-1. write this image to your emmc: https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update/qidi_update.img.7z
+i added klippain-shaketune, as well as spoolman, which is using mysql (or mariadb) or the database, i had problems with the default psgl database so i changed it. the setup for this release should be mostly the same as the previous release. the image itself is actually around 7.5gb (although it uses less than 6gb of space on the emmc), so i think you might need a 32GB emmc to instal it. 
+
+1. write this image to your emmc: [https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update/qidi_update.img.7z](https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update_v2/qidi_update_v2.7z)
 
 using a terminal client such as putty for windows, Terminal on macos or linux, or an app like shelly or terminus on your phone, ssh into your printer: `ssh mks@printer.ip.address` replacing 'printer.ip.address' with your printers ip address. the username is 'mks' and the password is 'makerbase' any time you are prompted for a password
 
@@ -58,15 +60,13 @@ to install the screen firmware for the smart3 (which is not necessary if you ins
 
 9. if you have a webcam, run `vidpath=$( ls -la /dev/v4l/by-id/ | grep index0 | grep -o 'video[0-9]' ) ; sed -i "s/device: \/dev\/video[0-9]/device: \/dev\/$vidpath/;s/resolution: [0-9]*x[0-9]*/resolution: 1280x960/" ~/klipper_config/config/crowsnest.conf ; sudo service crowsnest restart`. restart your printer and you should have the latest software and a working screen
 
-10. if you want to run the resonance testing macro, you need to install these: `sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev ; ~/klippy-env/bin/pip install -v numpy`
-
 ################################################################################################################################################################
 
 the installation of these patch files is not necessary, and i recommended you skip these steps as they could cause problems. although they could get thumbnails working on the screen again
 
 ################################################################################################################################################################
 
-11. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
+10. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
 
 for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe_patch.cfg ; mv printer-max3_probe_patch.cfg ~/klipper_config/config/printer.cfg`
 
@@ -74,4 +74,4 @@ for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max
 
 for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3_patch.cfg ; mv printer-smart3_patch.cfg ~/klipper_config/config/printer.cfg`
 
-12. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
+11. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
