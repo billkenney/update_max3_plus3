@@ -4,7 +4,7 @@ NOTE: i have added support for the smart3 based on a comment from qidi (https://
 
 ################################################################################################################################################################
 
-this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-12)
+this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-11)
 
 a qidi employee has also created an image. i installed it but ran into some pretty significant issues, and ended up reverting to my image. if you want to install his image, instructions are here: https://github.com/billkenney/update_max3_plus3/blob/main/cchen616-image.md
 
@@ -16,7 +16,7 @@ if you want to try the much more complicated manual install method, you can foll
 
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
 
-qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 11-12
+qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 10-11
 
 if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
 
