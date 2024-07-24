@@ -4,11 +4,11 @@ NOTE: i have added support for the smart3 based on a comment from qidi (https://
 
 ################################################################################################################################################################
 
-this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-13)
+this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-12)
 
 a qidi employee has also created an image. i installed it but ran into some pretty significant issues, and ended up reverting to my image. if you want to install his image, instructions are here: https://github.com/billkenney/update_max3_plus3/blob/main/cchen616-image.md
 
-if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer. after ssh'ing into your printer, if you don't see wlan0 in the list of network adapters (using `ifconfig` or `sudo ifconfig`), you can run this command to rename the adapter interface: `sudo printf 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan0", NAME="wlan0"' > /etc/udev/rules.d/70-custom-names.rules ; udevadm control --reload-rules ; sudo reboot`. if `ifconfig` and `sudo ifconfig` dont work, `nano ~/.bashrc` and add "exec zshrc" on its own line (without the quotation marks). then run `exec zsh` and try again
+if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer
 
 also, as discussed in this issue (https://github.com/billkenney/update_max3_plus3/issues/6), qidi has apparently been using different wifi modules. if you have an aic8800 module, you may be able to follow these steos to get it working as the drivers apparently do not work on my image: https://forum.beagleboard.org/t/success-with-brostrend-usb-wifi-dongle-somewhere-to-document-the-process/37007/3
 
@@ -28,13 +28,11 @@ using a terminal client such as putty for windows, Terminal on macos or linux, o
 
 2. the language is set to English and the timezone is set to America/Chicago. to change this, run `sudo dpkg-reconfigure locales`. find your time zone here: https://en.m.wikipedia.org/wiki/List_of_tz_database_time_zones (it should be in the format America/Chicago), then run `sudo timedatectl set-timezone [your_timezone] ; sudo timedatectl set-ntp 1` replacing [your_timezone] with your actual timezone
 
-if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem ; sudo reboot`
-
 3. to flash the mcu firmware, download this file, copy it to a micro sd card, plug it into the printer, and restart your printer: https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/X_4.bin
 
 ![325057677-0d15df45-8cd8-4e4c-88ec-a71b152b8cbb](https://github.com/billkenney/update_max3_plus3/assets/30010560/ce1f6465-d539-4137-80bd-90f31bab7661)
 
-4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the BOOT bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt`. on the newer extruder boards, the BOOT button is on the top right. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again before continuing. if it mounts with no errors, run `sudo systemctl daemon-reload ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; sudo mv klipper.uf2 /mnt` then restart your printer
+4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the BOOT bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt`. on the newer extruder boards, the BOOT button is on the top right. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again before continuing. if it mounts with no errors, run `sudo systemctl daemon-reload ; wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; sudo mv klipper.uf2 /mnt` then restart your printer
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
 
@@ -46,13 +44,13 @@ if youre using a 32gb emmc, run `sudo systemctl enable armbian-resize-filesystem
 
 7. you can skip this step if you have the max3 with the bltouch
 
-for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`
+for the max3 with the inductive probe run: `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe.cfg ; mv printer-max3_probe.cfg ~/klipper_config/config/printer.cfg`
 
-for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`
+for the plus3 run: `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`
 
 for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3.cfg ; mv printer-smart3.cfg ~/klipper_config/config/printer.cfg ; wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/mksclient-smart3.deb ; sudo dpkg -i mksclient-smart3.deb`
 
-8. to install the screen firmware for the max3 or the plus3 (which is not necessary if you installed the latest screen firmware on your printer prior to updating), run `sudo mv /root/800_480.tft.bak /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
+8. to install the screen firmware for the max3 or the plus3 (which is not necessary if you installed the latest screen firmware on your printer prior to updating), run `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/800_480.tft ; sudo mv 800_480.tft /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
 
 to install the screen firmware for the smart3 (which is not necessary if you installed the latest screen firmware on your printer prior to updating), run `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/800_480-smart3.tft ; sudo mv 800_480-smart3.tft /root/800_480.tft`, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
 
@@ -62,16 +60,13 @@ to install the screen firmware for the smart3 (which is not necessary if you ins
 
 10. if you want to run the resonance testing macro, you need to install these: `sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-dev ; ~/klippy-env/bin/pip install -v numpy`
 
-11. if you want to install moonraker-obico, run these commands then install with kiauh: 
-`sudo mkdir -p /root/.config/pip ; sudo printf "[global]\nbreak-system-packages = true\n" > /root/.config/pip/pip.conf ; sudo pip3 install -U urllib3 requests ; sudo apt install janus ; sudo systemctl enable janus ; sudo systemctl start janus`
-
 ################################################################################################################################################################
 
 the installation of these patch files is not necessary, and i recommended you skip these steps as they could cause problems. although they could get thumbnails working on the screen again
 
 ################################################################################################################################################################
 
-12. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
+11. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
 
 for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe_patch.cfg ; mv printer-max3_probe_patch.cfg ~/klipper_config/config/printer.cfg`
 
@@ -79,4 +74,4 @@ for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max
 
 for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3_patch.cfg ; mv printer-smart3_patch.cfg ~/klipper_config/config/printer.cfg`
 
-13. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
+12. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
