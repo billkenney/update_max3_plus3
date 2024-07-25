@@ -16,7 +16,7 @@ if you want to try the much more complicated manual install method, you can foll
 
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
 
-qidi has released some patch files, which, as far as i can tell, only allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 10-11
+qidi has released some patch files, which, as far as i can tell, sporadically allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 10-11
 
 if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
 
