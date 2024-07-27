@@ -20,7 +20,7 @@ qidi has released some patch files, which, as far as i can tell, sporadically al
 
 if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
 
-i added klippain-shaketune, as well as spoolman, which is using mysql (or mariadb) or the database, i had problems with the default psql database so i changed it. the setup for this release should be mostly the same as the previous release. the image itself is actually around 7.5gb (although it uses less than 6gb of space on the emmc), so i think you might need a 32GB emmc to instal it
+i added klippain-shaketune, as well as spoolman, which is using mysql (or mariadb) for the database, i had problems with the default psql database so i changed it. the setup for this release should be mostly the same as the previous release. the image itself is actually around 7.5gb (although it uses less than 6gb of space on the emmc), so i think you might need a 32GB emmc to install it
 
 the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
 
