@@ -4,11 +4,11 @@ NOTE: i have added support for the smart3 based on a comment from qidi (https://
 
 ################################################################################################################################################################
 
-this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-9 (and optionally 10-11)
+this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12)
 
 a qidi employee has also created an image. i installed it but ran into some pretty significant issues, and ended up reverting to my image. if you want to install his image, instructions are here: https://github.com/billkenney/update_max3_plus3/blob/main/cchen616-image.md
 
-if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer
+if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer. this has been fixed on my printer, but i have not yet created a new image. i will update the instructions once i have done so, for now you need ethernet and will have to complete step 10 to get the wifi on the screen working again
 
 also, as discussed in this issue (https://github.com/billkenney/update_max3_plus3/issues/6), qidi has apparently been using different wifi modules. if you have an aic8800 module, you may be able to follow these steos to get it working as the drivers apparently do not work on my image: https://forum.beagleboard.org/t/success-with-brostrend-usb-wifi-dongle-somewhere-to-document-the-process/37007/3
 
@@ -16,7 +16,7 @@ if you want to try the much more complicated manual install method, you can foll
 
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
 
-qidi has released some patch files, which, as far as i can tell, sporadically allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 10-11
+qidi has released some patch files, which, as far as i can tell, sporadically allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 11-12
 
 if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
 
@@ -59,6 +59,8 @@ to install the screen firmware for the smart3 (which is not necessary if you ins
 ![IMG_2028](https://github.com/billkenney/update_max3_plus3/assets/30010560/f5cf29b5-9c42-475f-9e84-a78b302265bf)
 
 9. if you have a webcam, run `vidpath=$( ls -la /dev/v4l/by-id/ | grep index0 | grep -o 'video[0-9]' ) ; sed -i "s/device: \/dev\/video[0-9]/device: \/dev\/$vidpath/;s/resolution: [0-9]*x[0-9]*/resolution: 1280x960/" ~/klipper_config/config/crowsnest.conf ; sudo service crowsnest restart`. restart your printer and you should have the latest software and a working screen
+
+10. run this to get wifi on the screen working again (and a couple other minor fixes). i'll integrate it into an updated image when i have the time: `sudo mv /etc/resolv.conf /etc/resolv.conf.bak ; sudo ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf ; sudo printf 'ctrl_interface=/var/run/wpa_supplicant\nctrl_interface_group=0\nupdate_config=1\n\nnetwork={\n  ssid="network"\n  psk="password"\n  mesh_fwding=1\n}\n' > /tmp/wpa ; sudo mv /tmp/wpa /etc/wpa_supplicant/wpa_supplicant-wlan0.conf ; sudo printf "#\!/bin/bash\nrm /var/run/wpa_supplicant/wlan0\n" > /tmp/del ; sudo mv /tmp/del /root/delwlan0.sh ; sudo chmod +x /root/delwlan0.sh ; sudo chown root:root /root/delwlan0.sh /root/.bash_history /root/.zsh_history /etc/wpa_supplicant/wpa_supplicant-wlan0.conf ; sudo sed -Ei 's/^(ExecStart.*$)/\1\nExecStartPre=-\/root\/delwlan0.sh/' /lib/systemd/system/makerbase-wlan0.service ; sudo sed -Ei 's/^(Description.*$)/\1\nAfter=mariadb.service/' /etc/systemd/system/Spoolman.service ; sudo systemctl daemon-reload ; sudo reboot`
 
 ################################################################################################################################################################
 
