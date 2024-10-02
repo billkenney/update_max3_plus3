@@ -24,7 +24,7 @@ i added klippain-shaketune, as well as spoolman, which is using mysql (or mariad
 
 the default user is 'mks' and password (for ssh and sudo) is 'makerbase'
 
-1. write this image to your emmc: https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update_v2/qidi_update_v2.7z
+1. write this image to your emmc (you need a 32gb emmc, i havent figured out how to shrink the image small enough to fit on the 8gb emmc): https://github.com/billkenney/update_max3_plus3/releases/download/qidi_update_v2/qidi_update_v2.7z
 
 using a terminal client such as putty for windows, Terminal on macos or linux, or an app like shelly or terminus on your phone, ssh into your printer: `ssh mks@printer.ip.address` replacing 'printer.ip.address' with your printers ip address. the username is 'mks' and the password is 'makerbase' any time you are prompted for a password
 
