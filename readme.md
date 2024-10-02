@@ -42,7 +42,7 @@ using a terminal client such as putty for windows, Terminal on macos or linux, o
 
 ![325061507-b820ced1-ac3a-4627-b366-04fd95770e5d](https://github.com/billkenney/update_max3_plus3/assets/30010560/de954ba9-a158-42d0-b564-d3a71169f4bc)
 
-6. ssh into your printer and run `sudo mv ~/klipper_config/MKS_THR.cfg ~/klipper_config/MKS_THR.cfg.bak ; path=$(ls /dev/serial/by-id/*) ; printf "[mcu MKS_THR]\nserial:$path\n" > ~/klipper_config/MKS_THR.cfg ; rm ~/klipper_config/config/MKS_THR.cfg ; ln -s ~/klipper_config/MKS_THR.cfg ~/klipper_config/config/MKS_THR.cfg`
+6. ssh into your printer and run `sudo mv ~/printer_data/MKS_THR.cfg ~/printer_data/MKS_THR.cfg.bak ; ls /dev/serial/by-id/* > /tmp/path ; sed -Ei 's/^/\[mcu MKS_THR\]\nserial:/;s/([0-9][0-9])$/\1\n/' /tmp/path ; sudo mv /tmp/path ~/printer_data/MKS_THR.cfg ; rm -rf ~/printer_data/config/MKS_THR.cfg ; ln -s ~/printer_data/MKS_THR.cfg ~/printer_data/config/MKS_THR.cfg`
 
 7. you can skip this step if you have the max3 with the bltouch
 
