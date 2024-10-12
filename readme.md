@@ -4,7 +4,7 @@ NOTE: i have added support for the smart3 based on a comment from qidi (https://
 
 ################################################################################################################################################################
 
-this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-12)
+this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookworm with the edge kernel, and the latest klipper, moonraker, and fluidd (or mainsail) without losing functionality of the screen. just follow steps 1-10 (and optionally 11-13)
 
 a qidi employee has also created an image. i installed it but ran into some pretty significant issues, and ended up reverting to my image. if you want to install his image, instructions are here: https://github.com/billkenney/update_max3_plus3/blob/main/cchen616-image.md
 
@@ -16,7 +16,7 @@ if you want to try the much more complicated manual install method, you can foll
 
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
 
-qidi has released some patch files, which, as far as i can tell, sporadically allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 11-12
+qidi has released some patch files, which, as far as i can tell, sporadically allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 12-13
 
 if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
 
@@ -62,13 +62,19 @@ to install the screen firmware for the smart3 (which is not necessary if you ins
 
 10. run this to get wifi on the screen working again (and a couple other minor fixes). i'll integrate it into an updated image when i have the time: `sudo mv /etc/resolv.conf /etc/resolv.conf.bak ; sudo ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf ; sudo printf 'ctrl_interface=/var/run/wpa_supplicant\nctrl_interface_group=0\nupdate_config=1\n\nnetwork={\n  ssid="network"\n  psk="password"\n  mesh_fwding=1\n}\n' > /tmp/wpa ; sudo mv /tmp/wpa /etc/wpa_supplicant/wpa_supplicant-wlan0.conf ; sudo chown root:root /root/.bash_history /root/.zsh_history /etc/wpa_supplicant/wpa_supplicant-wlan0.conf ; sudo sed -Ei 's/^After.*$/Before=dhcpcd@wlan0.service\nAfter=dbus.service/;s/^ExecStart=.*$/ExecStart=\/sbin\/wpa_supplicant -c\/etc\/wpa_supplicant\/wpa_supplicant-wlan0.conf -Dnl80211,wext -iwlan0 -u/;s/^Alias=.*$/WantedBy=network.target/' /lib/systemd/system/makerbase-wlan0.service ; sudo sed -Ei 's/^(Description.*$)/\1\nAfter=mariadb.service/' /etc/systemd/system/Spoolman.service ; sudo systemctl daemon-reload ; sudo apt install dhcpcd -y ; sudo systemctl disable dhcpcd.service ; sudo systemctl enable dhcpcd@wlan0.service ; sudo systemctl disable wpa_supplicant.service ; sudo systemctl enable makerbase-wlan0.service ; sudo reboot`
 
+11. if you have the max3 and want to update the firmware to 4.3.15, follow these steps. first `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/libboost_filesystem.so.1.67.0 ; sudo mv libboost_filesystem.so.1.67.0 /usr/lib/aarch64-linux-gnu/ ; wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/mksclient-max3-4.3.15.deb ; sudo dpkg -i mksclient-max3-4.3.15.deb ; sudo rm mksclient-max3-4.3.15.deb`
+delete and reinstall klipper and moonraker with kiauh: `cd /home/mks ; sudo service klipper stop ; sudo service moonraker stop ; sudo rm -rf klipper klipper-env moonraker moonraker-env ; sudo systemctl disable klipper.service ; sudo systemctl disable moonraker.service ; sudo rm /etc/systemd/system/klipper.service ; sudo rm /etc/systemd/system/moonraker.service ; sudo systemctl daemon-reload ; kiauh/kiauh.sh` (say y if prompted to update, then run the script again). 1 for the install menu, 1 for klipper, and skip the example printer.cfg. follow the same procedure to install moonraker, skip the sample config
+reinstall klippain_shaketune: `~/klippain_shaketune/.install.sh`
+install the screen firmware update: `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/800_480_max3_4.3.15.tft ; sudo mv 800_480_max3_4.3.15.tft /root/800_480.tft` then turn your printer off and on again. the screen should go white for like 30 min with a progress indicator
+i just installed this on my printer, and the screen firmware is still installing. so i haven't really had time to troubleshoot it yet. 
+
 ################################################################################################################################################################
 
 the installation of these patch files is not necessary, and i recommended you skip these steps as they could cause problems. although they could get thumbnails working on the screen again
 
 ################################################################################################################################################################
 
-11. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
+12. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
 
 for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe_patch.cfg ; mv printer-max3_probe_patch.cfg ~/klipper_config/config/printer.cfg`
 
@@ -76,4 +82,4 @@ for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max
 
 for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3_patch.cfg ; mv printer-smart3_patch.cfg ~/klipper_config/config/printer.cfg`
 
-12. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
+13. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
