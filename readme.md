@@ -69,6 +69,8 @@ reinstall klippain_shaketune: `~/klippain_shaketune/.install.sh`
 
 install the screen firmware update: `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/800_480_max3_4.3.15.tft ; sudo mv 800_480_max3_4.3.15.tft /root/800_480.tft` then turn your printer off and on again. the screen should go white for like 30 min with a progress indicator
 
+if your webcam stops working after the update step 9 again
+
 ################################################################################################################################################################
 
 the installation of these patch files is not necessary, and i recommended you skip these steps as they could cause problems. although they could get thumbnails working on the screen again
