@@ -69,7 +69,11 @@ reinstall klippain_shaketune: `~/klippain_shaketune/.install.sh`
 
 install the screen firmware update: `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/800_480_max3_4.3.15.tft ; sudo mv 800_480_max3_4.3.15.tft /root/800_480.tft` then turn your printer off and on again. the screen should go white for like 30 min with a progress indicator
 
-if your webcam stops working after the update step 9 again
+run these commands to make sure the services are still working properly: `sudo systemctl disable dhcpcd.service ; sudo systemctl enable dhcpcd@wlan0.service ; sudo systemctl disable wpa_supplicant.service ; sudo systemctl enable makerbase-wlan0.service`. for some reason my lan interface was renamed from eth0 to end1, so i couldn't see the ip address on the screen. run this to rename it to eth0: `macd=$( ip link show | grep 'ether' | head -n 1 | sed -E 's/^.*ether (.*) brd.*$/\1/' ) ; sudo printf "[Match]\nMACAddress=$macd\n[Link]\nName=eth0\n" > /tmp/macd ; sudo mv /tmp/macd /etc/systemd/network/10-eth0.link`. 
+
+if your webcam stops working after the update run step 9 again
+
+reboot your printer
 
 ################################################################################################################################################################
 
