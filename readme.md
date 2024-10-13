@@ -74,6 +74,10 @@ install the screen firmware update: `wget --no-check-certificate https://raw.git
 
 if your webcam stops working after the update run step 9 again
 
+if your date/time isnt working properly after the update, run `sudo apt install systemd-timesyncd ; sudo timedatectl set-ntp 1`
+
+you may have to reinstall timelapse. `/home/mks/moonraker-timelapse/scripts/install.sh`
+
 reboot your printer
 
 ################################################################################################################################################################
