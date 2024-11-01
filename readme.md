@@ -78,6 +78,8 @@ if your date/time isnt working properly after the update, run `sudo apt install 
 
 you may have to reinstall timelapse. `/home/mks/moonraker-timelapse/scripts/install.sh`
 
+if you get an error about gcode_shell_command, reinstall it with kiauh, the option is under extensions i believe: `~/kiauh/kiauh.sh`
+
 reboot your printer
 
 ################################################################################################################################################################
