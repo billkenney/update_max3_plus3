@@ -34,11 +34,11 @@ using a terminal client such as putty for windows, Terminal on macos or linux, o
 
 ![325057677-0d15df45-8cd8-4e4c-88ec-a71b152b8cbb](https://github.com/billkenney/update_max3_plus3/assets/30010560/ce1f6465-d539-4137-80bd-90f31bab7661)
 
-4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the BOOT bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt`. on the newer extruder boards, the BOOT button is on the top right. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again before continuing. if it mounts with no errors, run `sudo systemctl daemon-reload ; wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; sudo mv klipper.uf2 /mnt` then restart your printer
+4. to flash the extruder mcu, you need to unplug all usb devices except for the extruder, then hold the BOOT bottom left button on the back of your extruder board (see the image) for like 2 minutes or until the screen loads up fully, then ssh into your printer and run `sudo mount /dev/sda1 /mnt`. on the newer extruder boards, the BOOT button is on the top right. you can check to see if it's properly mounted with `ls /mnt`, you shuld see `INDEX.HTM  INFO_UF2.TXT`. if you get an error that it's mounted read-only, the extruder has not been mounted properly. restart and try to boot into dfu mode again before continuing. if it mounts with no errors, run `sudo systemctl daemon-reload ; wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/klipper.uf2 ; sudo mv klipper.uf2 /mnt` then restart your printer
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
 
-5. to flash the rpi mcu, ssh into your printer and run `cd ~/klipper ; make clean ; make menuconfig` and configure as shown in the below image. Then press 'q' and select the option to save, then `sudo service klipper stop ; make flash ; sudo service klipper start`
+5. update klipper with kiauh to the latest version before flashing the rpi mcu, then run `cd ~/klipper ; make clean ; make menuconfig` and configure as shown in the below image. Then press 'q' and select the option to save, then `sudo service klipper stop ; make flash ; sudo service klipper start`
 
 ![325061507-b820ced1-ac3a-4627-b366-04fd95770e5d](https://github.com/billkenney/update_max3_plus3/assets/30010560/de954ba9-a158-42d0-b564-d3a71169f4bc)
 
