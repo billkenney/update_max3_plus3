@@ -51,6 +51,7 @@ for the max3 with the inductive probe run: `wget --no-check-certificate https://
 for the plus3 run: `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3.cfg ; mv printer-plus3.cfg ~/klipper_config/config/printer.cfg`
 
 for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3.cfg ; mv printer-smart3.cfg ~/klipper_config/config/printer.cfg ; wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/mksclient-smart3.deb ; sudo dpkg -i mksclient-smart3.deb`
+after installing the firmware, you need to delete and reinstall klipper and moonraker. run `sudo service klipper stop ; sudo service moonraker stop ; sudo service klipper disable ; sudo service moonraker disable ; sudo systemctl daemon-reload ; rm -rf ~/klipper ~/klippy-env ~/moonraker ~/moonraker-env /etc/systemd/system/klipper.service /etc/systemd/moonraker.service ; ~/kiauh/kiauh.sh` then install klipper and moonraker via the kiauh menu
 
 8. to install the screen firmware for the max3 or the plus3 (which is not necessary if you installed the latest screen firmware on your printer prior to updating), run `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/800_480.tft ; sudo mv 800_480.tft /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
 
