@@ -38,7 +38,7 @@ using a terminal client such as putty for windows, Terminal on macos or linux, o
 
 ![325058698-1a76832d-02ad-4cd7-aa7c-f63277600226](https://github.com/billkenney/update_max3_plus3/assets/30010560/46a879b1-d77c-468d-b7ab-371fcdcf8673)
 
-5. update klipper with kiauh to the latest version before flashing the rpi mcu, then run `cd ~/klipper ; make clean ; make menuconfig` and configure as shown in the below image. Then press 'q' and select the option to save, then `sudo service klipper stop ; make flash ; sudo service klipper start`
+5. update klipper with kiauh to the latest version (`~/kiauh/kiauh.sh`) before flashing the rpi mcu, then run `cd ~/klipper ; make clean ; make menuconfig` and configure as shown in the below image. Then press 'q' and select the option to save, then `sudo service klipper stop ; make flash ; sudo service klipper start`
 
 ![325061507-b820ced1-ac3a-4627-b366-04fd95770e5d](https://github.com/billkenney/update_max3_plus3/assets/30010560/de954ba9-a158-42d0-b564-d3a71169f4bc)
 
@@ -53,6 +53,14 @@ for the plus3 run: `wget --no-check-certificate https://raw.githubusercontent.co
 for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3.cfg ; mv printer-smart3.cfg ~/klipper_config/config/printer.cfg ; wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/mksclient-smart3.deb ; sudo dpkg -i mksclient-smart3.deb`
 
 after installing the firmware for the smart3, you need to delete and reinstall klipper and moonraker. `cd /home/mks ; sudo service klipper stop ; sudo service moonraker stop ; sudo systemctl disable klipper.service ; sudo systemctl disable moonraker.service ; sudo rm -rf klipper klipper-env moonraker moonraker-env /etc/systemd/system/klipper.service /etc/systemd/system/moonraker.service ; sudo systemctl daemon-reload ; kiauh/kiauh.sh` (say y if prompted to update, then run the script again). 1 for the install menu, 1 for klipper, and skip the example printer.cfg. follow the same procedure to install moonraker, skip the sample config
+
+reinstall klippain_shaketune: `~/klippain_shaketune/install.sh`
+
+run these commands to make sure the services are still working properly: `sudo systemctl disable dhcpcd.service ; sudo systemctl enable dhcpcd@wlan0.service ; sudo systemctl disable wpa_supplicant.service ; sudo systemctl enable makerbase-wlan0.service`. for some reason my lan interface was renamed from eth0 to end1, so i couldn't see the ip address on the screen. run this to rename it to eth0: `macd=$( ip link show | grep 'ether' | head -n 1 | sed -E 's/^.*ether (.*) brd.*$/\1/' ) ; sudo printf "[Match]\nMACAddress=$macd\n[Link]\nName=eth0\n" > /tmp/macd ; sudo mv /tmp/macd /etc/systemd/network/10-eth0.link`
+
+you may have to reinstall timelapse. `/home/mks/moonraker-timelapse/scripts/install.sh`
+
+if you get an error about gcode_shell_command, reinstall it with kiauh, the option is under extensions i believe: `~/kiauh/kiauh.sh`
 
 8. to install the screen firmware for the max3 or the plus3 (which is not necessary if you installed the latest screen firmware on your printer prior to updating), run `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/qidi_3series_recovery/main/800_480.tft ; sudo mv 800_480.tft /root/800_480.tft`, restart your printer, you should see a white screen with a progress indicator similar to this image (it could take a few minutes to start, so be patient)
 
@@ -70,7 +78,7 @@ delete and reinstall klipper and moonraker with kiauh: `cd /home/mks ; sudo serv
 
 reinstall klippain_shaketune: `~/klippain_shaketune/install.sh`
 
-run these commands to make sure the services are still working properly: `sudo systemctl disable dhcpcd.service ; sudo systemctl enable dhcpcd@wlan0.service ; sudo systemctl disable wpa_supplicant.service ; sudo systemctl enable makerbase-wlan0.service`. for some reason my lan interface was renamed from eth0 to end1, so i couldn't see the ip address on the screen. run this to rename it to eth0: `macd=$( ip link show | grep 'ether' | head -n 1 | sed -E 's/^.*ether (.*) brd.*$/\1/' ) ; sudo printf "[Match]\nMACAddress=$macd\n[Link]\nName=eth0\n" > /tmp/macd ; sudo mv /tmp/macd /etc/systemd/network/10-eth0.link`. 
+run these commands to make sure the services are still working properly: `sudo systemctl disable dhcpcd.service ; sudo systemctl enable dhcpcd@wlan0.service ; sudo systemctl disable wpa_supplicant.service ; sudo systemctl enable makerbase-wlan0.service`. for some reason my lan interface was renamed from eth0 to end1, so i couldn't see the ip address on the screen. run this to rename it to eth0: `macd=$( ip link show | grep 'ether' | head -n 1 | sed -E 's/^.*ether (.*) brd.*$/\1/' ) ; sudo printf "[Match]\nMACAddress=$macd\n[Link]\nName=eth0\n" > /tmp/macd ; sudo mv /tmp/macd /etc/systemd/network/10-eth0.link`
 
 install the screen firmware update: `wget --no-check-certificate https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/800_480_max3_4.3.15.tft ; sudo mv 800_480_max3_4.3.15.tft /root/800_480.tft` then turn your printer off and on again. the screen should go white for like 30 min with a progress indicator
 
