@@ -8,15 +8,13 @@ this guide will allow you to update qidi max3 / plus3 / smart3 to debian bookwor
 
 a qidi employee has also created an image. i installed it but ran into some pretty significant issues, and ended up reverting to my image. if you want to install his image, instructions are here: https://github.com/billkenney/update_max3_plus3/blob/main/cchen616-image.md
 
-if you don't have ethernet, you should probably get an adapter before continuing. the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer. this has been fixed on my printer, but i have not yet created a new image. i will update the instructions once i have done so, for now you need ethernet and will have to complete step 10 to get the wifi on the screen working again
+another community member has created custom screen firmware for the max3/plus3 (and a beta version for the smart3), which runs on completely unmodified software (so you never have to install or update qidi firmware). you can use his image, or you can install the screen firmware and use it with my image. im using it right now with my image and it works great (no more z offset issues and the thumbnail works). he also made some significant improvements to the structure of the printer.cfg file, which i have been using without issue. https://github.com/Phil1988/FreeDi
+
+for my image, if you don't have ethernet, you should probably get an adapter before continuing (i have been told the smart3 has an ethernet port if you take the back panel off). the wifi menu on the printer screen does not work after upgrading (see https://github.com/billkenney/update_max3_plus3/issues/5). you can run `sudo nmtui` to use the network-manager service to create or manage network connections, and it will automatically connect on boot, but you need to be able to ssh into your printer. for now you need ethernet and will have to complete step 10 to get the wifi on the screen working again
 
 also, as discussed in this issue (https://github.com/billkenney/update_max3_plus3/issues/6), qidi has apparently been using different wifi modules. if you have an aic8800 module, you may be able to follow these steos to get it working as the drivers apparently do not work on my image: https://forum.beagleboard.org/t/success-with-brostrend-usb-wifi-dongle-somewhere-to-document-the-process/37007/3
 
-if you want to try the much more complicated manual install method, you can follow the manual steps (i have not created a manual guide for the smart3): https://github.com/billkenney/update_max3_plus3/blob/main/manual.md
-
 if you want to revert for some reason, you can follow these steps to revert to the stock image and flash the mcus with the old software: https://github.com/billkenney/update_max3_plus3/blob/main/revert.md
-
-qidi has released some patch files, which, as far as i can tell, sporadically allow you to see the thumbnails on the screen (which never really worked for me anyways). its possible it could also fix the wifi menu on the touch screen? other people have said the patch files cause problems, so i would recommend skipping steps 12-13
 
 if you've done all of the steps and are getting a message that the system starts abnormally, its possible that you did not correctly flash the extruder mcu (https://github.com/billkenney/update_max3_plus3/issues/4). try running step 4 again
 
@@ -91,19 +89,3 @@ you may have to reinstall timelapse. `/home/mks/moonraker-timelapse/scripts/inst
 if you get an error about gcode_shell_command, reinstall it with kiauh, the option is under extensions i believe: `~/kiauh/kiauh.sh`
 
 reboot your printer
-
-################################################################################################################################################################
-
-the installation of these patch files is not necessary, and i recommended you skip these steps as they could cause problems. although they could get thumbnails working on the screen again
-
-################################################################################################################################################################
-
-12. if you are installing qidi's patch files, for the max3 with the bltouch run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_bltouch_patch.cfg ; mv printer-max3_bltouch_patch.cfg ~/klipper_config/config/printer.cfg`
-
-for the max3 with the inductive probe run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-max3_probe_patch.cfg ; mv printer-max3_probe_patch.cfg ~/klipper_config/config/printer.cfg`
-
-for the plus3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-plus3_patch.cfg ; mv printer-plus3_patch.cfg ~/klipper_config/config/printer.cfg`
-
-for the smart3 run: `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/printer-smart3_patch.cfg ; mv printer-smart3_patch.cfg ~/klipper_config/config/printer.cfg`
-
-13. to install qidi's patch files, overwrite all of the files specified in issue 27 (https://github.com/QIDITECH/QIDI_PLUS3/issues/27#issuecomment-2073932891) with those in the klipper zip file (https://github.com/QIDITECH/QIDI_PLUS3/files/15087211/files_to_replace.zip), except for ~/klipper/klippy/extras/virtual_sdcard.py. overwrite the files specified here (https://github.com/QIDITECH/moonraker/issues/1#issuecomment-1985564638) with those in the moonraker zip file (https://github.com/QIDITECH/moonraker/files/14537786/moonraker_patch_2024_3_8.zip), except for ~/moonraker/moonraker/components/machine.py. overwrite virtual_sdcard.py and machine.py with the ones on this repository (the qidi files don't work, I had to comment or delete a few lines) `wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/virtual_sdcard.py ; mv virtual_sdcard.py ~/klipper/klippy/extras/virtual_sdcard.py ; wget https://raw.githubusercontent.com/billkenney/update_max3_plus3/main/machine.py ; mv machine.py ~/moonraker/moonraker/components/machine.py`
